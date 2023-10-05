@@ -114,7 +114,7 @@ def analyze_response_time(df):
     df['Datetime'] = pd.to_datetime(
         df['Date'] + ' ' + df['Time'], format='%d.%m.%y %H:%M:%S')
     df['Time_Diff'] = df['Datetime'].diff().where(
-        df['Sender'] != df['Sender'].shift())
+        df['Sender'] == df['Sender'].shift(-1))
     response_times = df.groupby('Sender')['Time_Diff'].mean(
     ).dt.total_seconds() / 60  # in Minuten
     return response_times
