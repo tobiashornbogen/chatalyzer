@@ -75,7 +75,14 @@ class WhatsAppAnalysisGUI(tk.Tk):
         self.results_text.insert(
             tk.END, "Durchschnittliche Antwortzeit (außerhalb des Hin-und-Her-Schreibens, in Minuten):\n" + str(response_times_adjusted) + "\n\n")
         
-        plot_frame = tk.Frame(self)
+        ttk.Button(self, text="Generate Plots", command=lambda: self.display_plots(message_counts, response_times, initiators, response_times_adjusted)).pack(pady=5)
+        
+    def display_plots(self, message_counts, response_times, initiators, response_times_adjusted):
+        plots_window = tk.Toplevel(self)
+        plots_window.title("Charts")
+        plots_window.geometry("900x600")
+
+        plot_frame = tk.Frame(plots_window)
         plot_frame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=True)
         plots = plot_results(message_counts, response_times, initiators, response_times_adjusted, plot_frame)
 
